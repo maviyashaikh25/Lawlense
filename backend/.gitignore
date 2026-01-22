@@ -1,0 +1,17 @@
+/node_modules
+.env
+dist    # Remove .env from git tracking
+git rm --cached .env
+
+# Commit the removal
+git commit -m "Remove .env file containing secrets"
+
+# Use BFG Repo-Cleaner or git filter-repo to remove secrets from history
+# If you have BFG installed:
+bfg --delete-files .env
+
+# Or with git filter-branch (slower, but built-in):
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch .env" --prune-empty --tag-name-filter cat -- --all
+
+# Force push the cleaned history
+git push origin main --force

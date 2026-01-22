@@ -58,17 +58,20 @@ exports.registerUser = async (req, res) => {
  * LOGIN USER
  */
 exports.loginUser = async (req, res) => {
+  console.log("Logedd in user");
   try {
     const { email, password } = req.body;
 
     // Find user
     const user = await User.findOne({ email });
+    console.log(user);
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -84,6 +87,7 @@ exports.loginUser = async (req, res) => {
       { expiresIn: "7d" }
     );
 
+    console.log("Token generated:", token);
     res.status(200).json({
       message: "Login successful",
       token,

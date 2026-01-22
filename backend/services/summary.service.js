@@ -2,7 +2,7 @@ const axios = require("axios");
 
 exports.generateSummary = async (text) => {
   try {
-    const response = await axios.post("http://localhost:8000/summarize", {
+    const response = await axios.post("https://law-ml.onrender.com/summarize", {
         text,
     });
     return response.data.summary;

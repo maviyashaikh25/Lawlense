@@ -2,7 +2,7 @@ const axios = require("axios");
 
 exports.generateEmbedding = async (text) => {
   try {
-    const response = await axios.post("http://localhost:8000/embed", {
+    const response = await axios.post("https://law-ml.onrender.com/embed", {
         text,
     });
     return response.data.embedding;
