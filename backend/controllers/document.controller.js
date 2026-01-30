@@ -89,7 +89,9 @@ exports.uploadAndExtractPDF = async (req, res) => {
     //  Extract text from PDF
     const extractedText = await extractTextFromPDF(req.file.path);
     const preprocessedText = await preprocessText(extractedText);
-    const response = await axios.post("https://law-ml.onrender.com/classify", {
+    const ML_HOST = process.env.ML_SERVICE_HOST || '127.0.0.1';
+    const ML_PORT = process.env.ML_SERVICE_PORT || 8000;
+    const response = await axios.post(`http://${ML_HOST}:${ML_PORT}/classify`, {
       text: preprocessedText,
     });
     const { document_type, confidence } = response.data;
@@ -119,7 +121,9 @@ exports.uploadAndExtractPDF = async (req, res) => {
 
     // 🆕 Extract Clauses
     try {
-      const clauseResponse = await axios.post("https://law-ml.onrender.com/extract_clauses", {
+      const ML_HOST = process.env.ML_SERVICE_HOST || '127.0.0.1';
+      const ML_PORT = process.env.ML_SERVICE_PORT || 8000;
+      const clauseResponse = await axios.post(`http://${ML_HOST}:${ML_PORT}/extract_clauses`, {
         text: preprocessedText,
       });
       if (clauseResponse.data) {

@@ -12,8 +12,8 @@ async function getEmbedding(text) {
     return new Promise((resolve, reject) => {
         const postData = JSON.stringify({ text });
         const options = {
-            hostname: '127.0.0.1',
-            port: 8000,
+            hostname: process.env.ML_SERVICE_HOST || '127.0.0.1',
+            port: process.env.ML_SERVICE_PORT || 8000,
             path: '/embed',
             method: 'POST',
             headers: {

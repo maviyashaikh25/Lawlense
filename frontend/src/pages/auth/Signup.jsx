@@ -46,8 +46,8 @@ export default function Signup() {
         description: res.message || "Welcome to LawLens. Your account has been created successfully.",
       });
 
-      // Optionally auto-login or just redirect to login
-      navigate("/login");
+      // Redirect to dashboard after signup
+      navigate("/dashboard");
     } catch (error) {
       toast({
         title: "Registration failed",
