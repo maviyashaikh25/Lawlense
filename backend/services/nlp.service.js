@@ -1,6 +1,4 @@
-// server/services/nlp.service.js
-
-import natural from "natural";
+const natural = require("natural");
 
 const tokenizer = new natural.WordTokenizer();
 
@@ -20,7 +18,7 @@ const STOP_WORDS = new Set([
   "a",
 ]);
 
-export const preprocessText = (text) => {
+const preprocessText = (text) => {
   if (!text) return "";
 
   // 1. Lowercase
@@ -41,3 +39,5 @@ export const preprocessText = (text) => {
   // 6. Rejoin tokens
   return tokens.join(" ");
 };
+
+module.exports = { preprocessText };
