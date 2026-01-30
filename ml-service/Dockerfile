@@ -11,8 +11,9 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-# Using --no-cache-dir to reduce image size
-RUN pip install --no-cache-dir -r requirements.txt
+# Using --no-cache-dir and cleaning up pip cache to save space
+RUN pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Copy the rest of the application code
 COPY . .
